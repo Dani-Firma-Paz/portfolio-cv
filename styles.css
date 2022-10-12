@@ -1,0 +1,594 @@
+/********* CUSTOM PROPERTIES*********/
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,700&display=swap');
+:root {
+    --first-color: #D90062;
+    --first-alpha-color: rgb(217,0, 98, 0.75);
+    --second-color: #14192d;
+    --second-alpha-color: rgb(20, 25, 45, 0.75);
+    --third-color: #501464;
+    --third-alpha-color: rgb(80, 20, 100, 0.75);
+    --white-color: #fff;
+    --gray-light-color: #f3f3f3;
+    --gray-color: #ccc;
+    --gray-dark-color: #666;
+    --black-color: #000;
+    --link-color: #509ee3;
+    --title-color: #333;
+    --text-color: #222;
+    --white-alpha-color: rgb(255, 255, 255, 0.5);
+    --black-alpha-color: rgb(0, 0, 0, 0.5);
+    --font: "Raleway", sans-serif;
+    --max-width:1200px;
+    --header-height: 4rem;
+}
+/********* RESET ***********/
+/*La propiedad OVERFLOW es para las cosas que desbordan. Para que no nos aparezca la barra de desplazamiento
+horizontal en el navegador para mover hacia los lados, utilizar esta propiedad, overflow-x:hidden.*/
+
+html {
+    box-sizing: border-box;
+    font-family: var(--font);
+    font-size: 16px;
+    scroll-behavior: smooth; /*Es para darle un movimiento de transición al apretar una palabra
+    y que nos lleve a la sección con ese nombre.*/
+
+}
+
+ *,
+ *::after, 
+ *::before {
+    box-sizing: inherit;
+ }
+
+ body {
+    margin: 0;
+    overflow-x: hidden; /*Cuando desborda el contenedor, aparece la barra de desplazamiento 
+    horizontal, con esta propiedad en X le decimos que oculte, sigue desbordándose el contenido
+    de la foto, pero desaparece esa barra de desplazamiento horizontal. */
+    color: var(--text-color);
+ }
+
+ a { /*Los links*/
+    color: var(--link-color);
+    transition: all 0.5s ease-out;
+ }
+
+ a:hover {
+    opacity: 0.75;
+ }
+
+ h1 {
+    margin: 0;
+    font-size: 2rem;
+ }
+
+ h2 {
+    margin: 0;
+    font-size: 1.5rem;
+ }
+
+ h3 {
+    margin: 0;
+    font-size: 1.25rem;
+ }
+
+ h4 {
+    margin: 0;
+    font-size: 1rem;
+ }
+
+ h5 {
+    margin: 0;
+    font-size: 0.85rem;
+ }
+
+ h6 {
+    margin: 0;
+    font-size: 0.7rem;
+ }
+
+ img {
+    max-width: 100%; /*Máxima anchura del contenedor donde esté y una altura automática harán
+    las imagenes responsivas.*/
+    height:auto;
+ }
+
+ p {
+    line-height: 1.6;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+
+ }
+
+
+
+
+/********* COMPONENTS ***********/
+
+/********* HERO IMAGE ***********/
+.hero-image {
+    background-image: var(--hero-image);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: var(--hero-attachment);
+}
+
+.hero-image-opacity {
+    width: 100%; /*La carcterística de estas imágenes es que vayan al tamaño de la pantalla. Por eso*/
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: var(--hero-opacity-color);
+}
+
+.hero-image-title {
+    font-size: 7.5vw;  /*significa que va a tomar el 7.5% del tamaño proporcional del tamaño de la pantalla, es
+    decir, del tamaño view port disponible.*/
+    color: var(--hero-text-color);
+}
+
+/********* MENU ***********/
+.menu-btn{
+    outline: thin solid var(--first-color);
+    border: 0;
+    cursor: pointer;
+    background-color: var(--second-color);
+}
+
+/*Para darle color a los SVG que son los botones de menu de navegación o en forma de X
+debemos usar una propiedad llamada fill que proporciona color o relleno.*/
+.menu-btn svg {
+    fill: var(--first-color);
+}
+
+.menu {
+    position: fixed;
+    left: 0;
+    bottom: var(--header-height);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--second-color);
+    opacity: 0; /*Clase auxiliar que con JavaScript se la agregue y active el comportamiento del 
+    menu de abrirse o cerrarse, para que pueda mostrarse u ocultarse.
+    Y para que no lo haga súbitamente, sino con una transición, le agregamos una transición*/
+    transition: opacity 0.5s ease;  /*Aunque tienen opacidad 0 siguen siendo elementos interactivos*/
+    pointer-events: none; /*Para esto colocamos esta propiedad, para que no haya interactividad con
+    el cursor.*/
+}
+
+.menu.is-active { /*Declaro un selector que tendrá una clase al menu is-active la cual
+    me permitirá cambiarle la opacidad a 1 y regresarle la propiedad pointer.events a automático. */
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.menu a {
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    text-align: none;
+    color: var(--first-color);
+}
+
+.menu a:hover {
+    color: var(--white-color);
+    background-color: var(--first-color);
+}
+
+@media screen and (min-width:1024px) {  
+    .menu-btn {
+        display: none;
+    }
+    .menu {
+        position: static;
+        width:auto;
+        flex-direction: row;
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .menu a {
+        padding: 0 1rem;
+    }
+    .menu a:last-child {
+        padding-right: 0;
+    }
+    .menu a:hover {
+        background-color: transparent;
+    }
+}
+
+/********* MODAL ***********/
+.modal {
+    position: fixed;
+    z-index: 999; /*Contenido alto para que siempre esté sobre cualquier contenido*/
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;  /*Los 4 lados en 0 hacen que el contenido se estire y lo obliga a que ocupe toda la pantalla.*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--black-alpha-color);
+    opacity: 0; /*La ventana modal tiene que estar con una opacidad de 0*/
+    pointer-events: none;
+    transition: all 1s;
+}
+
+.modal-content {
+    position: relative;
+    right: 1rem;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.modal-close svg {
+    width: 3rem;
+    height: 3rem;
+    fill: var(--first-color);
+}
+
+/*Estos estilos van a aplicar cuando el target de la página esté en en ID interno*/
+.modal[id|="trabajo"]:target { /*El selector | es para que cualquier ventana modal que en su
+    atributo id empiece con la palabra trabajo se va activar.*/
+    opacity: 1; /*La ventana modal tiene que estar con una opacidad de 1*/
+    pointer-events: auto;
+}
+
+/********* PROGRESS BAR ***********/
+progress {
+    width: 100%;
+    height: 1rem;
+    background-color: var(--gray-color);
+}
+
+progress::-webkit-progress-bar {
+    background-color: var(--gray-color);
+}
+
+progress::-webkit-progress-value {
+    background-color: var(--gray-dark-color);
+}
+
+progress::-moz-progress-bar {
+    background-color: var(--gray-dark-color);
+}
+
+.progress {
+    margin: 1rem auto;
+}
+
+.progress > p {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+/********* UTILITIES ***********/
+.bg-gray-light {
+    background-color: var(--gray-light-color);
+}
+
+.box-shadow-1 {
+    box-shadow: 0.25rem 0.25rem 1rem rgb(0, 0, 0, 0.25);
+}
+
+.btn {
+    border-radius: 0.5rem;
+    padding:1rem;
+    display: inline-block;
+    width: 200px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: var(--white-color);
+    background-color: var(--first-color);
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--max-width);
+}
+/*
+.grey-scale {
+    filter:grayscale(1);
+} */
+
+.none { /*La clase none está puesta en el ícono en forma de X que se utiliza para cerrar.*/
+    display: none; /*Hace que desaparezca la cruz para cerrar*/
+}
+
+.section {
+    padding: 2rem 1rem;
+
+}
+.section-title {
+    border-top: thin solid var(--first-color);
+    border-bottom: thin solid var(--first-color);
+    width: 250px;
+    margin: 2rem auto;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    color: var(--title-color);
+}
+
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+
+/*El tamaño desktop es cuando la mínima anchura sea de 1024*/
+@media screen and (min-width:1024px) {
+    .full-lg-screen {
+        width:100%;
+        min-height:100vh;
+    }
+
+    .text-lg-center {
+        text-align: center;
+    }
+
+    .text-lg-left {
+        text-align: left;
+    }
+     
+    
+    .text-lg-right {
+        text-align: right;
+    }
+
+}
+/********* SITE STYLES ************/
+/*Los proyectos pueden ser:
+Minimalista y dry. DRY: don't repeat yourself. Todo lo que ya hiciste una vez, trata de reutilizarlo tantas
+veces como puedas para no repetir lo mismo. Reutilizar y no volver hacer. */
+
+.about > article {
+    margin-bottom: 2rem;
+}
+
+.certification-card {
+    margin: 1rem auto;
+    padding: 1rem;
+    text-align: center; 
+}
+
+.certification-card h3 {
+    color: var(--title-color);
+}
+.certification-card svg {
+    margin-bottom: 1.25rem;
+    fill: var(--first-color);
+}
+
+.contact-card {
+    margin: 1rem auto;
+    padding: 1rem;
+    width: 100%;
+    height: 144px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contact-card > svg {
+    fill: var(--first-color);
+    width: 2rem;
+    height: 2rem;
+}
+
+.contact-card > small {
+    margin-top: -1rem;
+}
+
+.footer {
+    margin-bottom: var(--header-height);
+    text-align: center;
+    padding: 0.5rem;
+    background-color: var(--third-color);
+    color: var(--white-color);
+}
+
+.header { /*En versión móvil de la página, la cabecera estará fija en la parte de abajo.*/
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 999; /*Para evitar que cualquier otro contenido dinámico pase por sobre la cabecera
+    le colocamos el z-index en un número alto para prevenir.*/
+    width: 100%; /*Al ser un elemento posicionado de manera fija, pierde las propiedades de ancho 
+    y alto por eso le agregamos un width*/
+    padding: 1rem;
+    height: var(--header-height); /*Altura de la cabecera particular */
+    background-color: var(--second-color);
+}
+
+.header > .container {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    color: var(--first-color);
+    font-weight: bold;
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+.portfolio-card {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+
+.portfolio-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+ /*Propiedad de las imágenes para que si mis imágenes son rectangulares o desiguales
+    entre sí, no se me deforme o se pierda la proporción de la imagen y solucionado que se pierda el aspecto.*/
+}
+
+.portfolio-card-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    background-color: var(--first-alpha-color);
+    color: var(--white-color);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease-in-out; 
+}
+
+.portfolio-card:hover .portfolio-card-info {
+    opacity: 1;
+    pointer-events: auto;
+    }
+
+.portfolio-card-info > div {
+    padding: 1rem;
+    border: thin solid var(--white-color);
+    width: 100%;
+    height: 100%;
+}
+
+.portfolio-modal {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    background-color: var(--white-color);
+}
+
+.portfolio-modal h3 {
+    border-bottom: medium solid var(--first-color);
+    padding: 0.5rem 0;
+    margin: 1rem auto;
+    color: var(--title-color);
+}
+
+.portfolio-details {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-auto-rows: 2rem;
+}
+
+.portfolio-details b {
+    color: var(--first-color);
+}
+
+.social-media a {
+    padding: 0 0.4rem;
+    text-decoration: none;
+}
+
+.social-media svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+
+/*Para cuando el dispositivo sea pantalla y cuando la mínima altura sea 768px*/
+@media screen and (min-width:768px) {  
+    .certifications > .container {
+        display: grid;
+        grid-template-columns: repeat(2, 45%);
+        justify-content: space-between;
+        align-content: center;
+    }  
+
+    .certifications .section-title {
+        grid-column: span 2; /*propiedad para hacer desplazar la clase dos celdas o la cantidad que sea.*/
+    }
+
+    .contact-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 48%);
+        justify-content: space-between;
+    }
+
+    .portfolio > .container {
+        display: grid;
+        grid-template-columns: repeat(2, 50%);
+    }
+    
+    .portfolio .section-title {
+        grid-column: span 2;
+    }
+
+    .portfolio-modal {
+        max-width: 800px;
+        flex-direction: row;
+    }
+    
+    .portfolio-info {
+        margin-left: 1rem;
+        align-self: center;
+    }
+
+}
+
+
+@media screen and (min-width:1024px) {
+    .about {
+        display: grid;
+        grid-template-columns: repeat(3, 30%);
+        justify-content: space-between;
+        align-content: center;
+    }
+
+    .contact-cards {
+        grid-template-columns: repeat(4, 24%);
+    }
+
+    .footer {
+        margin-bottom: 0;
+    }
+
+    .header {
+        position: sticky; /*Es una mezcla entre el posicionamiento relativo y fijo*/
+        top: 0; /*Cuando toque el top 0 se va a volver fijo*/
+        padding: 0.5rem;
+        height: calc(var(--header-height) - 0.5rem);
+        }
+
+        .portfolio > .container {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    
+        .portfolio .section-title {
+            grid-column: span 3;
+        }
+
+        .certifications > .container {
+            grid-template-columns: repeat(3, 30%);
+        }
+    
+        .certifications .section-title {
+            grid-column: span 3;
+    }
+
+}
