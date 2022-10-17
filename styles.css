@@ -511,6 +511,8 @@ veces como puedas para no repetir lo mismo. Reutilizar y no volver hacer. */
 }
 
 
+
+
 /*Para cuando el dispositivo sea pantalla y cuando la mínima altura sea 768px*/
 @media screen and (min-width:768px) {  
     .certifications > .container {
@@ -592,3 +594,71 @@ veces como puedas para no repetir lo mismo. Reutilizar y no volver hacer. */
     }
 
 }
+
+/******** VIDEO *********/
+#modal {
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    transition: all .5s;
+  }
+  video {
+    width: 100%;
+    height: 65%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    justify-content: center;
+  }
+
+  #mostrar-modal {
+    display: none;
+  }
+  #mostrar-modal + label {
+    background: steelblue;
+    display: table;
+    margin: auto;
+    color: #fff;
+    line-height: 3;
+    padding: 0 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  #mostrar-modal + label:hover {
+    background: #38678f;
+  }
+
+  #mostrar-modal:checked ~ #modal {
+    top: 0;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.modal-close svg {
+    width: 3rem;
+    height: 3rem;
+    fill: var(--first-color);
+}
+
+#modal {
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    position: fixed;
+    top: -100vh;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    transition: all .5s;
+  }
+  
